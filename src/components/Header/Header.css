@@ -1,0 +1,26 @@
+.header {
+  background-color: #F3C1F8;
+}
+
+.header__container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-sizing: border-box;
+  max-width: 1280px;
+  min-height: 74px;
+  margin: 0 auto;
+  padding: 0 70px;
+}
+
+@media screen and (min-width: 426px) and (max-width: 768px){
+  .header__container {
+    padding: 0 30px;
+  }
+}
+
+@media screen and (max-width: 425px){
+  .header__container {
+    padding: 0 14px;
+  }
+}

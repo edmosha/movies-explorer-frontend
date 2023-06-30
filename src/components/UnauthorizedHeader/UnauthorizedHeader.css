@@ -1,16 +1,16 @@
-.auth-panel {
+.header {
   font-size: 12px;
   line-height: 16px;
   font-weight: 500;
 }
 
-.auth-panel__register {
+.header__register {
   margin-right: 30px;
   text-decoration: none;
   color: #000;
 }
 
-.auth-panel__login {
+.header__login {
   border-radius: 3px;
   padding: 8px 20px;
   background-color: #000;
@@ -19,16 +19,16 @@
 }
 
 @media screen and (max-width: 425px){
-  .auth-panel {
+  .header {
     font-size: 10px;
     line-height: 16px;
   }
 
-  .auth-panel__register {
+  .header__register {
     margin-right: 14px;
   }
 
-  .auth-panel__login {
+  .header__login {
     padding: 5px 12px;
   }
 }

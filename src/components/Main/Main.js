@@ -6,9 +6,9 @@ import Techs from '../Techs/Techs';
 import AboutMe from '../AboutMe/AboutMe';
 import Portfolio from '../Portfolio/Portfolio';
 
-function Main(props) {
+function Main() {
   return (
-    <main>
+    <main className="main">
       <Promo />
       <AboutProject />
       <Techs />

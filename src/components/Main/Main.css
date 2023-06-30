@@ -1,3 +1,7 @@
+.main {
+  flex: 1 0 auto;
+}
+
 .section-title {
   width: 100%;
   border-bottom: 1px solid #000;

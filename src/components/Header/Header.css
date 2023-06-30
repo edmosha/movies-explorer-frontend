@@ -1,4 +1,12 @@
 .header {
+  width: 100%;
+}
+
+.header__color_white {
+  background-color: #fff;
+}
+
+.header__color_pink {
   background-color: #F3C1F8;
 }
 

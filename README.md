@@ -16,6 +16,7 @@
 
 ### Информация
 
+**Ссылка на макет:** https://disk.yandex.ru/d/kX3XdIwCTgjW-w <br>
 **IP:** 158.160.66.154 <br>
 **Frontend:** https://movies-exp.edmosha.nomoreparties.sbs <br>
 **Backend:** https://api.movies-exp.edmosha.nomoreparties.sbs <br>

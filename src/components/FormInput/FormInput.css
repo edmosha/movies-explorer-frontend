@@ -1,0 +1,27 @@
+.form-input__title {
+  font-size: 10px;
+  color: #A0A0A0;
+}
+
+.form-input__input {
+  border: none;
+  border-bottom: 1px solid #E8E8E8;
+  padding: 5px 0 10px;
+  font-size: 14px;
+  outline: none;
+}
+
+.form-input__input_invalid {
+  color: #FF4062;
+}
+
+.form-input__error {
+  min-height: 12px;
+  margin: 6px 0;
+  font-size: 10px;
+  color: #FF4062;
+  word-wrap: break-word;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}

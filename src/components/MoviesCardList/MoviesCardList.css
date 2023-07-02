@@ -41,17 +41,21 @@
   top: 0;
   left: 50%;
   content: 'Ещё';
+
   width: 0;
   height: 36px;
   border-radius: 6px;
-  background-color: #F2F2F2;
+  background-color: #FF4062;
+  color: #fff;
   text-align: center;
-  transition: width 0.4s ease-in, left 0.4s ease-in;
+  opacity: 0;
+  transition: width .4s ease-in, left .4s ease-in, opacity .15s;
 }
 
 .movies-card-list__show-more-btn:hover:after {
   width: 100%;
   left: 0;
+  opacity: 1;
 }
 
 @media screen and (min-width: 769px) and (max-width: 1124px) {

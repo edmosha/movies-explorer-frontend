@@ -1,7 +1,7 @@
 import React from 'react';
 import './Header.css';
-import { Link, useLocation } from 'react-router-dom';
-import logo from '../../images/logo.svg';
+import { useLocation } from 'react-router-dom';
+import Logo from '../Logo/Logo';
 
 function Header({ children }) {
   const { pathname } = useLocation();
@@ -10,9 +10,7 @@ function Header({ children }) {
   return (
     <header className={headerClass}>
       <div className="header__container">
-        <Link to="/">
-          <img className="header__logo" src={logo} alt="Логотип" />
-        </Link>
+        <Logo />
         { children }
       </div>
     </header>

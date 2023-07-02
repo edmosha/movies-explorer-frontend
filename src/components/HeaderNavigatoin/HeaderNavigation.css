@@ -15,6 +15,11 @@
   text-decoration: none;
 }
 
+.header__menu-link:hover {
+  opacity: .7;
+  color: #FF4062;
+}
+
 .header__menu-link.active {
   font-weight: 500;
   border-bottom: 1px solid #000;
@@ -28,6 +33,11 @@
   line-height: 16px;
   color: #000;
   text-decoration: none;
+}
+
+.header__account:hover {
+  opacity: .7;
+  color: #FF4062;
 }
 
 @media screen and (max-width: 768px) {

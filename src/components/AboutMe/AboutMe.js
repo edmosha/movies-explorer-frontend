@@ -13,7 +13,7 @@ function AboutMe() {
           <h3 className="about-me__title">Дарья</h3>
           <p className="about-me__subtitle">Фронтенд-разработчица, 22 года</p>
           <p className="about-me__text" />
-          <a className="about-me__link" href="https://github.com/edmosha">Github</a>
+          <a className="about-me__link" href="https://github.com/edmosha" target="_blank" rel="noreferrer">Github</a>
         </div>
 
         <img className="about-me__photo" src={Photo} alt="Фото студента" />

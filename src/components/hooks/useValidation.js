@@ -5,7 +5,13 @@ function useValidation() {
   const [errors, setErrors] = useState({});
   const [isValid, setIsValid] = useState(false);
 
+  const [checked, setChecked] = useState(false);
+
   const onChange = (evt) => {
+    if (evt.target.type === 'checkbox') {
+      setChecked(!checked);
+    }
+
     const { name, value } = evt.target;
     setValues((prevValues) => ({ ...prevValues, [name]: value }));
   };
@@ -30,6 +36,7 @@ function useValidation() {
     values,
     errors,
     isValid,
+    checked,
     onChange,
     checkError,
     onKeyDown,

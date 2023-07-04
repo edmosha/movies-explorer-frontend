@@ -32,6 +32,10 @@
   outline: none;
 }
 
+.search-form__search-container:has(.search-form__input:focus)  {
+  border-bottom: 1px solid #FF4062;
+}
+
 .search-form__input::placeholder {
   color: #A0A0A0;
 }

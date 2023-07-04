@@ -11,6 +11,10 @@
   outline: none;
 }
 
+.form-input__input:focus {
+  border-bottom: 1px solid #A0A0A0;
+}
+
 .form-input__input_invalid {
   color: #FF4062;
 }

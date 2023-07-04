@@ -9,21 +9,21 @@ function Portfolio() {
       <ul className="portfolio__list">
 
         <li className="portfolio__item">
-          <a className="portfolio___link" href="https://github.com/edmosha/how-to-learn">
+          <a className="portfolio___link" href="https://github.com/edmosha/how-to-learn" target="_blank" rel="noreferrer">
             Статичный сайт
             <span className="portfolio__link-icon" />
           </a>
         </li>
 
         <li className="portfolio__item">
-          <a className="portfolio___link" href="https://github.com/edmosha/russian-travel">
+          <a className="portfolio___link" href="https://github.com/edmosha/russian-travel" target="_blank" rel="noreferrer">
             Адаптивный сайт
             <span className="portfolio__link-icon" />
           </a>
         </li>
 
         <li className="portfolio__item">
-          <a className="portfolio___link" href="https://github.com/edmosha/react-mesto-api-full-gha">
+          <a className="portfolio___link" href="https://github.com/edmosha/react-mesto-api-full-gha" target="_blank" rel="noreferrer">
             Одностраничное приложение
             <span className="portfolio__link-icon" />
           </a>

@@ -9,7 +9,7 @@ function MoviesCard({ isLiked }) {
     <li className="movies-card-list__item">
       <article className="movies-card">
 
-        <img src={tempCardImage} alt="" className="movies-card__image" />
+        <img src={tempCardImage} alt="Карточка фильма" className="movies-card__image" />
 
         <div className="movies-card__title-container">
           <h2 className="movies-card__title">33 слова о дизайне</h2>

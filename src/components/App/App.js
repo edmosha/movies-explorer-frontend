@@ -12,10 +12,13 @@ import Login from '../Login/Login';
 import Register from '../Register/Register';
 import Profile from '../Profile/Profile';
 import Page404 from '../Page404/Page404';
+import useWindowSize from '../hooks/useWindowSize';
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(true);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
+  const { width } = useWindowSize();
 
   const handleOpenMobileMenu = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
@@ -35,7 +38,7 @@ function App() {
 
   // подставить нужное значение разрешения экрана
 
-    <CurrentScreenResolution.Provider value="1280">
+    <CurrentScreenResolution.Provider value={width}>
       <div className="App">
 
         { !hiddenHeaderPathList.has(pathname) && handleHeader() }

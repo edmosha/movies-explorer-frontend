@@ -1,0 +1,87 @@
+.movies-card-list {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 1280px;
+  box-sizing: border-box;
+  margin: 0 auto;
+  padding: 74px 70px 80px;
+}
+
+.movies-card-list__card-container {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 28px 20px;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.movies-card-list__show-more-btn {
+  position: relative;
+  width: 320px;
+  height: 36px;
+  margin: 52px 0 0;
+  padding: 0;
+  border: none;
+  border-radius: 6px;
+  background: #F9F9F9;
+  text-align: center;
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.movies-card-list__show-more-btn:after {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  top: 0;
+  left: 50%;
+  content: 'Ещё';
+
+  width: 0;
+  height: 36px;
+  border-radius: 6px;
+  background-color: #FF4062;
+  color: #fff;
+  text-align: center;
+  opacity: 0;
+  transition: width .4s ease-in, left .4s ease-in, opacity .15s;
+}
+
+.movies-card-list__show-more-btn:hover:after {
+  width: 100%;
+  left: 0;
+  opacity: 1;
+}
+
+@media screen and (min-width: 769px) and (max-width: 1124px) {
+  .movies-card-list__card-container {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media screen and (min-width: 426px) and (max-width: 768px) {
+  .movies-card-list {
+    padding: 74px 30px 80px;
+  }
+
+  .movies-card-list__card-container {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px 30px;
+  }
+}
+
+@media screen and (max-width: 425px) {
+  .movies-card-list {
+    padding: 40px 10px 75px;
+  }
+
+  .movies-card-list__card-container {
+    grid-template-columns: repeat(1, 1fr);
+    gap: 24px 0;
+  }
+}

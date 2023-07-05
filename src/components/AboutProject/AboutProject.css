@@ -1,0 +1,154 @@
+.about-project {
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 110px 70px;
+}
+
+.about-project__info-container {
+  display: flex;
+  justify-content: space-between;
+  gap: 50px;
+  margin: 70px 0 110px;
+}
+
+.about-project__info-block {
+  max-width: 550px;
+}
+
+.about-project__info-header {
+  margin: 0;
+  font-size: 20px;
+  font-weight: 400;
+  letter-spacing: -0.8px;
+}
+
+.about-project__info-text {
+  margin: 30px 0 0;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 20px;
+}
+
+/* timeline block */
+
+.about-project__timeline-container {
+  display: grid;
+  grid-template-columns: 1fr 4fr;
+}
+
+.about-project__timeline-elem {
+  display: inline-block;
+  width: 100%;
+  margin: 0;
+  font-size: 14px;
+  text-align: center;
+}
+
+.about-project__timeline-elem:nth-of-type(1){
+  padding: 9px 0;
+  font-weight: 400;
+  background-color: #000;
+  color: #fff;
+}
+
+.about-project__timeline-elem:nth-of-type(2){
+  padding: 9px 0;
+  font-weight: 400;
+  background-color: #F2F2F2;
+}
+
+.about-project__timeline-elem:nth-of-type(3){
+  padding: 14px 0 0;
+  font-weight: 500;
+  line-height: 17px;
+  color: #A0A0A0;
+}
+
+.about-project__timeline-elem:nth-of-type(4){
+  padding: 14px 0 0;
+  font-weight: 500;
+  line-height: 17px;
+  color: #A0A0A0;
+}
+
+@media screen and (min-width: 426px) and (max-width: 768px){
+  .about-project {
+    padding: 90px 50px;
+  }
+
+  .about-project__info-container {
+    gap: 30px;
+    margin: 70px 0 95px;
+  }
+
+  .about-project__info-block {
+    max-width: 319px;
+  }
+
+  .about-project__info-text {
+    margin: 25px 0 0;
+    font-size: 12px;
+    line-height: 18px;
+  }
+
+  .about-project__timeline-container {
+    grid-template-columns: 4fr 15fr;
+  }
+}
+
+@media screen and (max-width: 620px) {
+  .about-project__info-container {
+    margin: 60px 0;
+    flex-wrap: wrap;
+  }
+
+  .about-project__info-container {
+    gap: 60px;
+  }
+
+  .about-project__info-block {
+    max-width: none;
+    width: 100%;
+  }
+
+  .about-project__timeline-elem {
+    font-size: 11px;
+    font-weight: 400;
+  }
+}
+
+@media screen and (max-width: 425px){
+  .about-project {
+    padding: 70px 18px;
+  }
+
+  .about-project__info-header {
+    font-size: 18px;
+    letter-spacing: -0.72px;
+  }
+
+  .about-project__info-text {
+    margin: 17px 0 0;
+    font-size: 11px;
+    line-height: 16px;
+  }
+
+  /* timeline block */
+
+  .about-project__timeline-container {
+    grid-template-columns: 6fr 11fr;
+  }
+
+  .about-project__timeline-elem:nth-of-type(3){
+    padding: 10px 0 0;
+    font-weight: 400;
+  }
+
+  .about-project__timeline-elem:nth-of-type(4){
+    padding: 10px 0 0;
+    font-weight: 400;
+  }
+}

@@ -1,0 +1,61 @@
+.filter-checkbox__container {
+  display: block;
+  position: relative;
+  padding-left: 36px;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.filter-checkbox__input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+.filter-checkbox__new-checkbox {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 36px;
+  height: 20px;
+  border-radius: 30%;
+  background: url("../../images/tumbler-off.svg") no-repeat;
+  transition: background .2s ease-in
+}
+
+.filter-checkbox__new-checkbox:after {
+  position: absolute;
+  content: "";
+  top: 6px;
+  left: 6px;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #fff;
+  transition: transform .3s ease-in;
+}
+
+.filter-checkbox__input:checked ~ .filter-checkbox__new-checkbox {
+  background: url("../../images/tumbler-on.svg") no-repeat;
+}
+
+.filter-checkbox__input:checked ~ .filter-checkbox__new-checkbox:after {
+  transform: translateX(16px);
+}
+
+.filter-checkbox__text {
+  margin-left: 12px;
+  font-size: 14px;
+  line-height: 18px;
+}
+
+@media screen and (max-width: 425px) {
+  .filter-checkbox__text {
+    font-size: 11px;
+  }
+}

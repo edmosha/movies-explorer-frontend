@@ -1,0 +1,112 @@
+.auth {
+  display: flex;
+  flex-direction: column;
+  max-width: 396px;
+  width: 100%;
+  max-height: 518px;
+  height: 100%;
+  box-sizing: border-box;
+  margin: 0 auto;
+  padding: 70px 0;
+}
+
+.auth__question {
+  margin: 16px 0 0;
+  text-align: center;
+  font-size: 14px;
+  color: #A0A0A0;
+}
+
+.auth__link {
+  margin-left: 6px;
+  color: #000;
+  text-decoration: none;
+}
+
+.auth__title {
+  margin: 40px 0;
+  font-size: 24px;
+  font-weight: 500;
+}
+
+.auth__form {
+  display: grid;
+  grid-template-rows: auto repeat(1, min-content);
+  max-width: inherit;
+  width: 100%;
+  min-height: 100%;
+}
+
+.auth__input-container {
+  display: flex;
+  flex-direction: column;
+  max-width: inherit;
+}
+
+.auth__submit-btn {
+  position: relative;
+  width: 100%;
+  height: 45px;
+  border: none;
+  border-radius: 3px;
+  padding: 0;
+  background-color: #000;
+  text-align: center;
+  font-size: 14px;
+  font-weight: 500;
+  color: #fff;
+  cursor: pointer;
+}
+
+.auth__submit-btn:after {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  top: 0;
+  left: 50%;
+  content: attr(data-content);;
+  width: 0;
+  height: 45px;
+  border-radius: 3px;
+  background-color: #FF4062;
+  text-align: center;
+  transition: width .4s ease-in, left .4s ease-in, opacity .15s;
+  opacity: 0;
+}
+
+.auth__submit-btn:hover:after {
+  opacity: 1;
+  width: 100%;
+  left: 0;
+}
+
+.auth__submit-btn_inactive {
+  background-color: #fff;
+  color: #A0A0A0;
+  border: 1px solid #A0A0A0;
+}
+
+.auth__submit-btn_inactive:hover:after {
+  display: none;
+}
+
+@media screen and (min-width: 426px) and (max-width: 768px) {
+  .auth {
+    max-width: 456px;
+    max-height: 680px;
+    padding: 230px 30px 70px;
+  }
+}
+
+@media screen and (max-width: 425px) {
+  .auth {
+    max-height: 550px;
+    padding: 56px 30px 30px;
+    align-items: center;
+  }
+
+  .auth__title {
+    margin: 45px 0 85px;
+  }
+}

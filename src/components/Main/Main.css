@@ -1,0 +1,21 @@
+.main {
+  flex: 1 0 auto;
+}
+
+.section-title {
+  width: 100%;
+  border-bottom: 1px solid #000;
+  margin: 0;
+  padding-bottom: 23px;
+  font-size: 22px;
+  font-weight: 400;
+  letter-spacing: -0.88px;
+}
+
+@media screen and (max-width: 425px){
+  .section-title {
+    padding-bottom: 30px;
+    font-size: 18px;
+    letter-spacing: -0.72px;
+  }
+}

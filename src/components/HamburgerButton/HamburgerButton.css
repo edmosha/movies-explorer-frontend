@@ -1,0 +1,58 @@
+.hamburger-btn {
+  width: 28px;
+  height: 21px;
+  margin: 0 8px 0 0;
+  padding: 0;
+  border: none;
+  background: unset;
+  cursor: pointer;
+  display: block;
+  z-index: 2;
+  transition: margin .5s ease;
+}
+
+.hamburger-btn__fixed {
+  position: fixed;
+  top: 28px;
+  right: 30px;
+  margin-right: -10px;
+}
+
+.hamburger-btn__line {
+  width: 28px;
+  height: 3px;
+  margin-bottom: 6px;
+  background: #000;
+}
+
+.hamburger-btn__line:last-of-type {
+  margin-bottom: 0;
+}
+
+.hamburger-btn__line {
+  transition: opacity .5s ease, transform .5s ease;
+}
+
+
+.hamburger-btn__line_opened:nth-child(1) {
+  transform: rotate(45deg) translateY(12px) ;
+
+}
+
+.hamburger-btn__line_opened:nth-child(2) {
+  opacity: 0;
+}
+
+.hamburger-btn__line_opened:nth-child(3) {
+  transform: rotate(-45deg) translateY(-13px);;
+}
+
+@media screen and (max-width: 425px) {
+  .hamburger-btn__fixed {
+    position: fixed;
+    top: 26px;
+    right: 15px;
+    margin-right: -10px;
+  }
+}
+

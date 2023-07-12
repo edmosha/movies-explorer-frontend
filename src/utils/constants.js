@@ -1,0 +1,1 @@
+export const moviesApiUrl = 'https://api.nomoreparties.co';

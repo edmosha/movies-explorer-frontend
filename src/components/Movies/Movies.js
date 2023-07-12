@@ -3,11 +3,17 @@ import './Movies.css';
 import SearchForm from '../SearchForm/SearchForm';
 import MoviesCardList from '../MoviesCardList/MoviesCardList';
 
-function Movies() {
+function Movies({ movies, isLoading, onClickMoreButton, isAllCardsOnPage }) {
   return (
     <main className="movies">
       <SearchForm />
-      <MoviesCardList />
+      { movies
+        ? <MoviesCardList movies={ movies }
+                          onClickMoreButton={onClickMoreButton}
+                          isAllCardsOnPage={isAllCardsOnPage}
+        />
+        : <p>Ничего не найдено</p>
+      }
     </main>
   );
 }

@@ -2,8 +2,10 @@ import React from 'react';
 import './AuthForm.css';
 import { Link } from 'react-router-dom';
 import Logo from '../Logo/Logo';
+import BlackFormButton from "../BlackFormButton/BlackFormButton";
 
 function AuthForm({
+  onSubmit,
   children,
   isValid,
   title,
@@ -12,27 +14,26 @@ function AuthForm({
   underSubmitButtonLinkText,
   underSubmitButtonLink,
 }) {
-  const submitButtonClass = `auth__submit-btn ${!isValid ? 'auth__submit-btn_inactive' : ''}`;
+  const submitButtonClass = `black-form-button ${!isValid ? 'black-form-button_inactive' : ''}`;
 
   return (
     <section className="auth">
       <Logo />
       <h1 className="auth__title">{ title }</h1>
 
-      <form className="auth__form">
+      <form className="auth__form" onSubmit={ onSubmit }>
         <div className="auth__input-container">
 
           { children }
 
         </div>
-        <button
-          className={submitButtonClass}
-          type="submit"
-          disabled={!isValid}
-          data-content={submitButtonText}
-        >
-          { submitButtonText }
-        </button>
+
+        <BlackFormButton className={submitButtonClass}
+                         text={submitButtonText}
+                         type="submit"
+                         disabled={!isValid}
+        />
+
       </form>
 
       <p className="auth__question">

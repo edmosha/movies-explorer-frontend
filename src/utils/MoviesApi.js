@@ -1,4 +1,4 @@
-import { moviesApiUrl } from "./constants";
+import { moviesApiUrl } from './constants';
 
 class MoviesApi {
   constructor(baseUrl) {
@@ -6,9 +6,9 @@ class MoviesApi {
   }
 
   getMovies() {
-   return fetch(this._baseUrl, { method: 'GET' }).then(res => res.json())
+    return fetch(this._baseUrl, { method: 'GET' }).then((res) => res.json());
   }
 }
 
-const moviesApi = new MoviesApi(moviesApiUrl + '/beatfilm-movies');
+const moviesApi = new MoviesApi(`${ moviesApiUrl }/beatfilm-movies`);
 export default moviesApi;

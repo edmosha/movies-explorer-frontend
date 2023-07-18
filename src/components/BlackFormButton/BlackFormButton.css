@@ -37,9 +37,10 @@
 }
 
 .black-form-button_inactive {
-  background-color: #fff;
+  background: unset;
   color: #A0A0A0;
   border: 1px solid #A0A0A0;
+  cursor: unset;
 }
 
 .black-form-button_inactive:hover:after {

@@ -1,65 +1,146 @@
 import './App.css';
 import React, { useEffect, useState } from 'react';
-import { Route, Routes, useLocation, useNavigate } from 'react-router-dom';
+import {
+  Route, Routes, useLocation, useNavigate,
+} from 'react-router-dom';
+import useWindowSize from '../hooks/useWindowSize';
+import handleCardsParams from '../../utils/handleCardsParams';
+import moviesApi from '../../utils/MoviesApi';
+import mainApi from '../../utils/MainApi';
+import CurrentUser from '../contexts/CurrentUser';
+import CurrentScreenResolution from '../contexts/CurrentScreenResolution';
+import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
 import Main from '../Main/Main';
-import Footer from '../Footer/Footer';
 import AuthorizedHeader from '../AuthorizedHeader/AuthorizedHeader';
 import UnauthorizedHeader from '../UnauthorizedHeader/UnauthorizedHeader';
-import Movies from '../Movies/Movies';
-import CurrentScreenResolution from '../contexts/CurrentScreenResolution';
 import MobileRightPanel from '../MobileRightPanel/MobileRightPanel';
+import Footer from '../Footer/Footer';
+import Movies from '../Movies/Movies';
+import SavedMovies from '../SavedMovies/SavedMovies';
 import Login from '../Login/Login';
 import Register from '../Register/Register';
 import Profile from '../Profile/Profile';
 import Page404 from '../Page404/Page404';
-import useWindowSize from '../hooks/useWindowSize';
-import moviesApi from '../../utils/MoviesApi';
-import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
-import mainApi from "../../utils/MainApi";
-import InfoPopup from "../InfoPopup/InfoPopup";
+import InfoPopup from '../InfoPopup/InfoPopup';
+import Preloader from '../Preloader/Preloader';
 
 function App() {
-  // const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [ isMobileMenuOpen, setIsMobileMenuOpen ] = useState(false);
-  const [ currentUser, setCurrentUser ] = useState({ _id: '', name: '', email: '' });
-  const [ moviesData, setMoviesData ] = useState([]);
-  const [ filteredMovies, setFilteredMovies ] = useState([]);
-  const [ displayedMovies, setDisplayedMovies ] = useState([]);
-  const [ cardsLoad, setCardsLoad ] = useState(0);
+  // global
+  const [isLoading, setIsLoading] = useState(true);
+  const [currentUser, setCurrentUser] = useState({});
+  const [loggedIn, setLoggedIn] = useState(false);
 
-  const [ isLoading, setIsLoading ] = useState(true);
+  // movies
+  const [cardsLoad, setCardsLoad] = useState(0);
+  const [allMovies, setAllMovies] = useState([]);
+  const [savedMovies, setSavedMovies] = useState([]);
+  const [filteredMovies, setFilteredMovies] = useState([]);
+  const [displayedMovies, setDisplayedMovies] = useState([]);
 
-  // const [ isInfoPopupOpen, setIsInfoPopupOpen ] = useState(false);
-  const [ infoPopupParams, setInfoPopupParams ] = useState({ message: '', error: false, isOpen: false });
-
-  const { pathname } = useLocation();
-  const hiddenHeaderPathList = new Set([ '/signin', '/signup', '/404' ]);
-  const hiddenFooterPathList = new Set([ '/profile', '/signin', '/signup', '/404' ]);
+  // other
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [infoPopupParams, setInfoPopupParams] = useState({});
 
   const { width } = useWindowSize();
   const navigate = useNavigate();
 
   useEffect(() => {
     setCardsLoad(handleCardsParams(width).cardsLoad);
-  }, [ width ])
+  }, [width]);
 
   useEffect(() => {
-    Promise.all([ moviesApi.getMovies() ])
-      .then(([ movies ]) => {
-        setMoviesData(movies)
-        console.log('config', handleCardsParams(width))
-        // console.log(movies[1])
-        setDisplayedMovies(movies.slice(0, handleCardsParams(width).cardsInPage));
-      })
-  }, [])
+    if (localStorage.getItem('user')) {
+      Promise.all([moviesApi.getMovies(), mainApi.getAboutMe(), mainApi.getSavedMovies()])
+        .then(([moviesData, user, savedMoviesData]) => {
+          setAllMovies(moviesData);
+          setSavedMovies(savedMoviesData);
 
-  const onClickMoreButton = () => {
-    if (moviesData.length === displayedMovies.length) {
-      console.log('кнопка пропадает')
-      return 'кнопка пропадает';
+          setCurrentUser((user));
+          setLoggedIn(true);
+          setIsLoading(false);
+        });
+    }
+  }, []);
+
+  // info pop-up logic
+
+  const handleInfoPopupClose = () => {
+    setInfoPopupParams({ ...infoPopupParams, isOpen: false });
+  };
+
+  const handleError = (error, { onClose } = { onClose: handleInfoPopupClose }) => {
+    setInfoPopupParams({
+      message: error.message,
+      error: true,
+      isOpen: true,
+      onClose,
+    });
+  };
+
+  const handleOk = (messageText, { onClose } = { onClose: handleInfoPopupClose }) => {
+    setInfoPopupParams({
+      message: messageText,
+      error: false,
+      isOpen: true,
+      onClose,
+    });
+  };
+
+  // register and authorization logic
+
+  const handleRegister = (data) => {
+    mainApi.register(data)
+      .then(() => handleOk('Вы зарегистрированны!'))
+      .catch((err) => handleError(err));
+  };
+
+  const handleLogin = (data) => {
+    mainApi.login(data)
+      .then((res) => {
+        localStorage.setItem('user', res._id);
+        setCurrentUser(res);
+        handleOk('Вы вошли в аккаунт!', {
+          onClose: () => {
+            handleInfoPopupClose();
+            navigate('/movies', { replace: true });
+          },
+        });
+      })
+      .catch((err) => handleError(err));
+  };
+
+  const handleLogout = () => {
+    mainApi.logout()
+      .then(() => {
+        localStorage.removeItem('user');
+        handleOk('Вы вышли из акканта. Будем ждать вас снова!', {
+          onClose: () => {
+            handleInfoPopupClose();
+            setCurrentUser({});
+            navigate('/', { replace: true });
+          },
+        });
+      })
+      .catch((err) => handleError(err));
+  };
+
+  // user and movies logic
+
+  const handleUpdateProfile = (data) => {
+    mainApi.updateAboutMe(data)
+      .then(() => {
+        setCurrentUser({ ...currentUser, name: data.name, email: data.email });
+        handleOk('Данные профиля успешно обнновлены!');
+      })
+      .catch((err) => handleError(err));
+  };
+
+  const handleClickMoreButton = (movies) => {
+    if (movies.length === displayedMovies.length) {
+      return;
     }
 
-    const diff = moviesData.length - displayedMovies.length;
+    const diff = movies.length - displayedMovies.length;
     let index;
 
     if (diff < cardsLoad) {
@@ -67,146 +148,120 @@ function App() {
     } else {
       index = displayedMovies.length + cardsLoad;
     }
-    console.log('cardsLoad', cardsLoad)
-    console.log('displayedMovies.length', displayedMovies.length, 'index', index)
-    console.log(moviesData.slice(displayedMovies.length, index))
-    setDisplayedMovies([ ...displayedMovies, ...moviesData.slice(displayedMovies.length, index) ])
-  }
 
-  function handleCardsParams(screen) {
-    switch (true) {
-      case screen > 1124:
-        return { cardsInPage: 16, cardsLoad: 8 };
+    setDisplayedMovies([...displayedMovies, ...movies.slice(displayedMovies.length, index)]);
+  };
 
-      case screen > 768 && screen <= 1124:
-        return { cardsInPage: 12, cardsLoad: 3 };
+  const handleDisplayedMovies = (movies) => {
+    setDisplayedMovies(movies.slice(0, handleCardsParams(width).cardsInPage));
+  };
 
-      case screen > 425 && screen <= 768:
-        return { cardsInPage: 8, cardsLoad: 2 };
+  const handleMovieLike = (likedMovie) => {
+    mainApi.like(likedMovie)
+      .then((movie) => setSavedMovies([...savedMovies, movie]));
+  };
 
-      case screen <= 425:
-        return { cardsInPage: 5, cardsLoad: 2 };
-    }
-  }
+  const handleMovieDislike = (movieId) => {
+    mainApi.dislike(movieId)
+      .then(() => mainApi.getSavedMovies())
+      .then((updatedSavedMovies) => {
+        setSavedMovies(updatedSavedMovies);
 
-  const handleError = (error) => {
-    setInfoPopupParams({
-      message: error.message,
-      error: true,
-      isOpen: true,
-    })
-  }
+        setDisplayedMovies(displayedMovies.filter((movie) => movie.movieId !== movieId));
+      });
+  };
 
-  const handleOk = (messageText) => {
-    setInfoPopupParams({
-      message: messageText,
-      error: false,
-      isOpen: true,
-    })
-  }
+  // header and footer render logic
 
-  const handleRegister = (data) => {
-    mainApi.register(data)
-      .then(() => handleOk('Вы зарегистрированны!'))
-      .catch((err) => handleError(err))
-  }
-
-  const handleLogin = (data) => {
-    mainApi.login(data)
-      .then((res) => {
-        localStorage.setItem('user', res._id);
-        setCurrentUser(res);
-        handleOk('Вы вошли в аккаунт!');
-        navigate('/movies', { replace: true });
-      })
-      .catch((err) => handleError(err))
-  }
-
-  const handleUnlogin = (data) => {
-    mainApi.unlogin()
-      .then(() => {
-        localStorage.removeItem('user');
-        setCurrentUser({ _id: '', name: '', email: '' });
-        handleOk('Вы вышли из акканта. Будем ждать вас снова!');
-        navigate('/movies', { replace: true });
-      })
-      .catch((err) => handleError(err))
-  }
-
-  const handleInfoPopupClose = () => {
-    setInfoPopupParams({ ...infoPopupParams, isOpen: false });
-  }
-
-  const handleMovies = () => {
-    return moviesApi.getMovies().then(movies => {
-      setMoviesData(movies);
-    })
-  }
-
-  const handleCardLike = () => {
-    mainApi.like
-  }
+  const { pathname } = useLocation();
+  const hiddenHeaderPathList = new Set(['/signin', '/signup', '/404']);
+  const hiddenFooterPathList = new Set(['/profile', '/signin', '/signup', '/404']);
 
   const handleOpenMobileMenu = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
   };
 
   const handleHeader = () => (
-    !!currentUser
-      ? <AuthorizedHeader handleOpenMobileMenu={ handleOpenMobileMenu }/>
-      : <UnauthorizedHeader/>
+    Object.keys(currentUser).length
+      ? <AuthorizedHeader handleOpenMobileMenu={ handleOpenMobileMenu } />
+      : <UnauthorizedHeader />
   );
 
   return (
     <CurrentScreenResolution.Provider value={ width }>
-      <div className="App">
+      <CurrentUser.Provider value={ currentUser }>
+        <div className="App">
+          { loggedIn
+            ? (
+              <>
+                { !hiddenHeaderPathList.has(pathname) && handleHeader() }
 
-        { !hiddenHeaderPathList.has(pathname) && handleHeader() }
+                <Routes>
+                  <Route path="/" element={ <Main /> } />
+                  <Route path="/signin" element={ <Login handleLogin={ handleLogin } /> } />
+                  <Route path="/signup" element={ <Register handleRegister={ handleRegister } /> } />
+                  <Route path="/404" element={ <Page404 /> } />
 
-        <Routes>
-          <Route path="/" element={ <Main/> }/>
-          <Route path="/signin" element={ <Login handleLogin={ handleLogin }/> }/>
-          <Route path="/signup" element={ <Register handleRegister={ handleRegister }/> }/>
-          <Route path="/404" element={ <Page404/> }/>
+                  <Route
+                    path="/movies"
+                    element={ (
+                      <ProtectedRoute
+                        element={ Movies }
+                        loggedIn={ loggedIn }
+                        displayedMovies={ displayedMovies }
+                        movies={ allMovies }
+                        savedMovies={ savedMovies }
+                        handleDisplayedMovies={ handleDisplayedMovies }
+                        handleClickMoreButton={ handleClickMoreButton }
+                        isAllCardsOnPage={ allMovies.length === displayedMovies.length }
+                        handleMovieLike={ handleMovieLike }
+                        handleMovieDislike={ handleMovieDislike }
+                        isLoading={ isLoading }
+                      />
+                    ) }
+                  />
 
-          <Route path="/movies" element={
-            <ProtectedRoute
-              element={ Movies }
-              user={ !!currentUser }
-              movies={ displayedMovies }
-              // handleMovies={handleMovies}
-              onClickMoreButton={ onClickMoreButton }
-              // buttonConfig={{
-              //   isAllCardsOnPage: moviesData.length === displayedMovies.length
-              // }}
-              isAllCardsOnPage={ moviesData.length === displayedMovies.length }
-              isLoading={ isLoading }
-            /> }
-          />
+                  <Route
+                    path="/saved-movies"
+                    element={ (
+                      <ProtectedRoute
+                        element={ SavedMovies }
+                        loggedIn={ loggedIn }
+                        displayedMovies={ displayedMovies }
+                        movies={ savedMovies }
+                        handleDisplayedMovies={ handleDisplayedMovies }
+                        handleClickMoreButton={ handleClickMoreButton }
+                        isAllCardsOnPage={ savedMovies.length === displayedMovies.length }
+                        handleMovieLike={ handleMovieLike }
+                        handleMovieDislike={ handleMovieDislike }
+                      />
+                    ) }
+                  />
 
-          <Route path="/saved-movies" element={
-            <ProtectedRoute
-              element={ Movies }
-              user={ !!currentUser }
-              onClickMoreButton={ onClickMoreButton }
-            /> }
-          />
+                  <Route
+                    path="/profile"
+                    element={ (
+                      <ProtectedRoute
+                        element={ Profile }
+                        loggedIn={ loggedIn }
+                        handleUpdateProfile={ handleUpdateProfile }
+                        handleLogout={ handleLogout }
+                      />
+                    ) }
+                  />
 
-          <Route path="/profile" element={
-            <ProtectedRoute
-              element={ Profile }
-              user={ !!currentUser }
-            /> }
-          />
+                </Routes>
 
-        </Routes>
+                { !hiddenFooterPathList.has(pathname) && <Footer /> }
 
-        { !hiddenFooterPathList.has(pathname) && <Footer/> }
+                <InfoPopup params={ infoPopupParams } />
+                <MobileRightPanel isOpen={ isMobileMenuOpen } />
+              </>
+            )
 
-        <InfoPopup params={ infoPopupParams } onClose={ handleInfoPopupClose }/>
-
-        <MobileRightPanel isOpen={ isMobileMenuOpen }/>
-      </div>
+            : <Preloader /> }
+        </div>
+      </CurrentUser.Provider>
     </CurrentScreenResolution.Provider>
   );
 }

@@ -43,7 +43,7 @@
   border: none;
   opacity: .25;
   background: url("../../images/like-disabled-icon.svg") no-repeat;
-  transition: background .12s ease-in,  opacity .12s ease-in, transform .12s ease-in;
+  transition: background .12s ease-in, opacity .12s ease-in, transform .12s ease-in;
 }
 
 .movies-card:hover .movies-card__like-btn {

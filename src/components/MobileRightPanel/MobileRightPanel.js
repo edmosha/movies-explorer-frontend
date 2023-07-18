@@ -4,10 +4,10 @@ import HeaderNavigation from '../HeaderNavigatoin/HeaderNavigatoin';
 import './MobileRightPanel.css';
 
 function MobileRightPanel({ isOpen }) {
-  const mobilePanelClass = `mobile-right-panel ${isOpen ? 'mobile-right-panel__opened' : ''}`;
+  const mobilePanelClass = `mobile-right-panel ${ isOpen ? 'mobile-right-panel__opened' : '' }`;
 
   return (
-    <section className={mobilePanelClass}>
+    <section className={ mobilePanelClass }>
       <div className="mobile-right-panel__container">
         <HeaderNavigation>
           <li>

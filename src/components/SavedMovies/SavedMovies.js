@@ -1,13 +1,12 @@
 import React, { useEffect } from 'react';
-import './Movies.css';
+import './SavedMovies.css';
 import SearchForm from '../SearchForm/SearchForm';
 import MoviesCardList from '../MoviesCardList/MoviesCardList';
 
-function Movies(
+function SavedMovies(
   {
     displayedMovies,
     movies,
-    savedMovies,
     handleDisplayedMovies,
     handleClickMoreButton,
     isAllCardsOnPage,
@@ -19,13 +18,7 @@ function Movies(
     handleDisplayedMovies(movies);
   }, []);
 
-  const handleIsLiked = (movie) => {
-    for (let i = 0; i < savedMovies.length; i++) {
-      if (savedMovies[i].movieId === movie.id) return true;
-    }
-
-    return false;
-  };
+  const handleIsLiked = (movie) => !!movie;
 
   const onClickMoreButton = () => {
     handleClickMoreButton(movies);
@@ -35,7 +28,7 @@ function Movies(
     <main className="movies">
       <SearchForm />
       { movies
-        && (
+        ? (
           <MoviesCardList
             movies={ displayedMovies }
             onClickMoreButton={ onClickMoreButton }
@@ -44,9 +37,10 @@ function Movies(
             handleMovieDislike={ handleMovieDislike }
             handleIsLiked={ handleIsLiked }
           />
-        ) }
+        )
+        : <p>Ничего не найдено</p> }
     </main>
   );
 }
 
-export default Movies;
+export default SavedMovies;

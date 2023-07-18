@@ -5,9 +5,9 @@ function FilterCheckbox({ value, onChange }) {
   return (
     <label className="filter-checkbox__container" htmlFor="filter-checkbox">
       <input
-        value={!value}
-        onChange={onChange}
-        checked={value}
+        value={ !value }
+        onChange={ onChange }
+        checked={ value }
         type="checkbox"
         name="filter"
         className="filter-checkbox__input"

@@ -4,13 +4,15 @@ import FormInput from '../FormInput/FormInput';
 import useValidation from '../hooks/useValidation';
 
 function Login({ handleLogin }) {
-  const { values, errors, isValid, onChange, checkError, onKeyDown, resetValidation } = useValidation();
+  const {
+    values, errors, isValid, onChange, checkError, onKeyDown, resetValidation,
+  } = useValidation();
 
   const handleSubmit = (evt) => {
     evt.preventDefault();
     handleLogin(values);
     resetValidation();
-  }
+  };
 
   return (
     <AuthForm

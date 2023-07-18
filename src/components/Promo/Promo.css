@@ -32,13 +32,13 @@
     background-position: bottom center;
   }
 
-  .promo__title  {
+  .promo__title {
     text-align: center;
   }
 }
 
 
-@media screen and (min-width: 426px) and (max-width: 768px){
+@media screen and (min-width: 426px) and (max-width: 768px) {
   .promo {
     padding: 0 0 70px;
   }
@@ -48,7 +48,7 @@
   }
 }
 
-@media screen and (max-width: 425px){
+@media screen and (max-width: 425px) {
   .promo {
     padding: 0 0 40px;
   }
@@ -58,7 +58,7 @@
     padding: 183px 10px 290px;
   }
 
-  .promo__title  {
+  .promo__title {
     font-size: 31px;
     line-height: 39px;
     letter-spacing: -1.24px;

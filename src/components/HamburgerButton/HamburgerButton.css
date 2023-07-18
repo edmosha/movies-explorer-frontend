@@ -35,7 +35,7 @@
 
 
 .hamburger-btn__line_opened:nth-child(1) {
-  transform: rotate(45deg) translateY(12px) ;
+  transform: rotate(45deg) translateY(12px);
 
 }
 

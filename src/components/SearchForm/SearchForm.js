@@ -9,7 +9,7 @@ function SearchForm() {
   const whiteSearchButtonClass = `
     search-form__button 
     search-form__button_color_white 
-    ${ScreenResolution <= 320 ? 'search-form__button_hidden' : ''}`;
+    ${ ScreenResolution <= 320 ? 'search-form__button_hidden' : '' }`;
 
   const {
     values, isValid, onChange, checkError, onKeyDown, checked,
@@ -21,17 +21,17 @@ function SearchForm() {
         <fieldset className="search-form__search-container">
 
           <button
-            aria-label="start search"
+            aria-label="поиск"
             type="button"
-            className={whiteSearchButtonClass}
-            disabled={!isValid}
+            className={ whiteSearchButtonClass }
+            disabled={ !isValid }
           />
 
           <input
-            value={values.search || ''}
-            onChange={onChange}
-            onBlur={checkError}
-            onKeyDown={onKeyDown}
+            value={ values.search || '' }
+            onChange={ onChange }
+            onBlur={ checkError }
+            onKeyDown={ onKeyDown }
             type="text"
             name="search"
             className="search-form__input"
@@ -40,14 +40,14 @@ function SearchForm() {
           />
 
           <button
-            aria-label="start search"
+            aria-label="поиск"
             type="button"
             className="search-form__button search-form__button_color_black"
-            disabled={!isValid}
+            disabled={ !isValid }
           />
 
         </fieldset>
-        <FilterCheckbox value={checked || false} onChange={onChange} />
+        <FilterCheckbox value={ checked || false } onChange={ onChange } />
       </form>
     </section>
   );

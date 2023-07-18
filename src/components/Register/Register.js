@@ -4,13 +4,15 @@ import FormInput from '../FormInput/FormInput';
 import useValidation from '../hooks/useValidation';
 
 function Register({ handleRegister }) {
-  const { values, errors, isValid, onChange, checkError, onKeyDown, resetValidation } = useValidation();
+  const {
+    values, errors, isValid, onChange, checkError, onKeyDown, resetValidation,
+  } = useValidation();
 
   const handleSubmit = (evt) => {
     evt.preventDefault();
     handleRegister(values);
     resetValidation();
-  }
+  };
 
   return (
     <AuthForm

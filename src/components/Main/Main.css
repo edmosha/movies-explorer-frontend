@@ -12,7 +12,7 @@
   letter-spacing: -0.88px;
 }
 
-@media screen and (max-width: 425px){
+@media screen and (max-width: 425px) {
   .section-title {
     padding-bottom: 30px;
     font-size: 18px;

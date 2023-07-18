@@ -9,14 +9,20 @@
         "ecmaVersion": "latest"
     },
     "rules": {
-        "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
         "react/prop-types": "off",
-        "no-underscore-dangle": ["error", { "allow": ["_id"] }],
+        "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
+        "react/jsx-curly-spacing": [2, "always"],
+        "react/jsx-props-no-spreading": ["error", { "html": "ignore", "exceptions": ["Component"] }],
+        "jsx-a11y/label-has-associated-control": ["error", { "required": { "some": ["nesting", "id"] } }],
+        "jsx-a11y/label-has-for": ["error", { "required": { "some": ["nesting", "id"] } }],
+        "no-underscore-dangle": ["error", { "allow": ["_id"], "allowAfterThis": true }],
         "jest/no-disabled-tests": "warn",
         "jest/no-focused-tests": "error",
         "jest/no-identical-title": "error",
         "jest/prefer-to-have-length": "warn",
-        "jest/valid-expect": "error"
+        "jest/valid-expect": "error",
+        "template-curly-spacing": ["error", "always"],
+        "no-plusplus": ["error", { "allowForLoopAfterthoughts": true }]
     },
     "plugins": ["jest"]
 }

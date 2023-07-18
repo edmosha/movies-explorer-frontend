@@ -28,7 +28,8 @@ function useValidation() {
 
   const onKeyDown = (evt) => evt.key === 'Enter' && checkError(evt);
 
-  const resetValidation = (newValues = {}, newErrors = {}) => {
+  const resetValidation = (newValues = {}, newErrors = {}, checkbox = false) => {
+    setChecked(checkbox);
     setValues(newValues);
     setErrors(newErrors);
     setIsValid(false);

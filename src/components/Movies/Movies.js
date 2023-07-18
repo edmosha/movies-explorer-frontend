@@ -1,41 +1,46 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import './Movies.css';
 import SearchForm from '../SearchForm/SearchForm';
 import MoviesCardList from '../MoviesCardList/MoviesCardList';
+import Preloader from "../Preloader/Preloader";
 
 function Movies(
   {
     displayedMovies,
-    movies,
-    savedMovies,
+    filteredMovies,
+    moviesData,
     handleDisplayedMovies,
     handleClickMoreButton,
-    isAllCardsOnPage,
     handleMovieLike,
     handleMovieDislike,
+    handleSearch,
+    handleIsLiked,
+    searchText,
+    filter,
+    isSearchLoading
   },
 ) {
+
   useEffect(() => {
-    handleDisplayedMovies(movies);
-  }, []);
+    handleDisplayedMovies(filteredMovies);
+  }, [filteredMovies]);
 
-  const handleIsLiked = (movie) => {
-    for (let i = 0; i < savedMovies.length; i++) {
-      if (savedMovies[i].movieId === movie.id) return true;
-    }
-
-    return false;
-  };
+  const isAllCardsOnPage = filteredMovies.length === displayedMovies.length;
 
   const onClickMoreButton = () => {
-    handleClickMoreButton(movies);
+    handleClickMoreButton(filteredMovies);
   };
 
   return (
     <main className="movies">
-      <SearchForm />
-      { movies
-        && (
+      <SearchForm moviesData={ moviesData }
+                  onSearch={ handleSearch }
+                  searchText={ searchText }
+                  filter={ filter }
+      />
+      {
+        !!displayedMovies.length
+        ? (
           <MoviesCardList
             movies={ displayedMovies }
             onClickMoreButton={ onClickMoreButton }
@@ -44,7 +49,9 @@ function Movies(
             handleMovieDislike={ handleMovieDislike }
             handleIsLiked={ handleIsLiked }
           />
-        ) }
+        )
+        : ( <p className="movies__empty-search-text">Здесь пока пусто 👀</p>)
+      }
     </main>
   );
 }

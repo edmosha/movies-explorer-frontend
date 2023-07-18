@@ -1,45 +1,56 @@
-import React, { useEffect } from 'react';
-import './SavedMovies.css';
-import SearchForm from '../SearchForm/SearchForm';
-import MoviesCardList from '../MoviesCardList/MoviesCardList';
+import React, { useEffect, useLayoutEffect, useState } from 'react';
+import Movies from "../Movies/Movies";
 
 function SavedMovies(
   {
     displayedMovies,
-    movies,
+    filteredMovies,
+    moviesData,
     handleDisplayedMovies,
+    handleFilteredMovies,
     handleClickMoreButton,
-    isAllCardsOnPage,
     handleMovieLike,
     handleMovieDislike,
+    handleSearch,
   },
 ) {
+
+  const [ isSearchLoading, setIsSearchLoading ] = useState(true);
+  const [ searchText, setSearchText ] = useState('');
+  const [ filter, setFilter ] = useState(false);
+
   useEffect(() => {
-    handleDisplayedMovies(movies);
+    const search = localStorage.getItem('saved-movies_search-text');
+    const isShortMovie = localStorage.getItem('saved-movies_is-short-movie');
+    const movies = localStorage.getItem('saved-movies_movies');
+
+    if(search && isShortMovie && movies) {
+      handleFilteredMovies(JSON.parse(movies));
+      setSearchText(search);
+      setFilter(JSON.parse(isShortMovie));
+    } else {
+      handleFilteredMovies(moviesData);
+    }
+
+    setIsSearchLoading(false);
   }, []);
 
   const handleIsLiked = (movie) => !!movie;
 
-  const onClickMoreButton = () => {
-    handleClickMoreButton(movies);
-  };
-
   return (
-    <main className="movies">
-      <SearchForm />
-      { movies
-        ? (
-          <MoviesCardList
-            movies={ displayedMovies }
-            onClickMoreButton={ onClickMoreButton }
-            isAllCardsOnPage={ isAllCardsOnPage }
-            handleMovieLike={ handleMovieLike }
-            handleMovieDislike={ handleMovieDislike }
-            handleIsLiked={ handleIsLiked }
-          />
-        )
-        : <p>Ничего не найдено</p> }
-    </main>
+    !isSearchLoading &&
+      <Movies displayedMovies={ displayedMovies }
+              filteredMovies={ filteredMovies }
+              moviesData={ moviesData }
+              handleDisplayedMovies={ handleDisplayedMovies }
+              handleClickMoreButton={ handleClickMoreButton }
+              handleMovieLike={ handleMovieLike }
+              handleMovieDislike={ handleMovieDislike }
+              handleIsLiked={ handleIsLiked }
+              handleSearch={ handleSearch }
+              searchText={ searchText }
+              filter={ filter }
+      />
   );
 }
 

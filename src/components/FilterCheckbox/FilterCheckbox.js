@@ -12,7 +12,6 @@ function FilterCheckbox({ value, onChange }) {
         name="filter"
         className="filter-checkbox__input"
         id="filter-checkbox"
-        required
       />
       <span className="filter-checkbox__new-checkbox" />
       <span className="filter-checkbox__text">Короткометражки</span>

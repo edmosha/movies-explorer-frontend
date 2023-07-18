@@ -15,7 +15,7 @@ import AuthorizedHeader from '../AuthorizedHeader/AuthorizedHeader';
 import UnauthorizedHeader from '../UnauthorizedHeader/UnauthorizedHeader';
 import MobileRightPanel from '../MobileRightPanel/MobileRightPanel';
 import Footer from '../Footer/Footer';
-import Movies from '../Movies/Movies';
+import UnsavedMovies from "../UnsavedMovies/UnsavedMovies";
 import SavedMovies from '../SavedMovies/SavedMovies';
 import Login from '../Login/Login';
 import Register from '../Register/Register';
@@ -117,6 +117,7 @@ function App() {
           onClose: () => {
             handleInfoPopupClose();
             setCurrentUser({});
+            setLoggedIn(false);
             navigate('/', { replace: true });
           },
         });
@@ -134,6 +135,30 @@ function App() {
       })
       .catch((err) => handleError(err));
   };
+
+  const filterMovies = (str, isShortMovie, movies) => {
+    return movies.filter((movie) => {
+      const { nameRU, nameEN, description, director, country, year, duration } = movie;
+      const aboutMoviesText = nameRU + ' ' + nameEN + ' ' + description + ' ' + director + ' ' + country + ' ' + year;
+
+      if (JSON.parse(isShortMovie) && duration > 40) return false;
+      console.log(str.toLowerCase())
+
+      return aboutMoviesText.toLowerCase().includes(str.toLowerCase());
+    })
+  }
+
+  const handleSearch = (searchText, filter = 'false', url, movies) => {
+
+    const filteredMoviesData = filterMovies(searchText, filter, movies);
+    setFilteredMovies(filteredMoviesData);
+
+    localStorage.setItem(url + '_search-text', searchText);
+    localStorage.setItem(url + '_is-short-movie', String(filter));
+    localStorage.setItem(url + '_movies', JSON.stringify(filteredMoviesData));
+
+
+  }
 
   const handleClickMoreButton = (movies) => {
     if (movies.length === displayedMovies.length) {
@@ -156,6 +181,10 @@ function App() {
     setDisplayedMovies(movies.slice(0, handleCardsParams(width).cardsInPage));
   };
 
+  const handleFilteredMovies = (movies) => {
+    setFilteredMovies(movies);
+  };
+
   const handleMovieLike = (likedMovie) => {
     mainApi.like(likedMovie)
       .then((movie) => setSavedMovies([...savedMovies, movie]));
@@ -166,7 +195,6 @@ function App() {
       .then(() => mainApi.getSavedMovies())
       .then((updatedSavedMovies) => {
         setSavedMovies(updatedSavedMovies);
-
         setDisplayedMovies(displayedMovies.filter((movie) => movie.movieId !== movieId));
       });
   };
@@ -191,7 +219,7 @@ function App() {
     <CurrentScreenResolution.Provider value={ width }>
       <CurrentUser.Provider value={ currentUser }>
         <div className="App">
-          { loggedIn
+          { !isLoading
             ? (
               <>
                 { !hiddenHeaderPathList.has(pathname) && handleHeader() }
@@ -206,17 +234,18 @@ function App() {
                     path="/movies"
                     element={ (
                       <ProtectedRoute
-                        element={ Movies }
+                        element={ UnsavedMovies }
                         loggedIn={ loggedIn }
                         displayedMovies={ displayedMovies }
-                        movies={ allMovies }
+                        filteredMovies={ filteredMovies }
                         savedMovies={ savedMovies }
+                        moviesData={ allMovies }
                         handleDisplayedMovies={ handleDisplayedMovies }
+                        handleFilteredMovies={ handleFilteredMovies }
                         handleClickMoreButton={ handleClickMoreButton }
-                        isAllCardsOnPage={ allMovies.length === displayedMovies.length }
                         handleMovieLike={ handleMovieLike }
                         handleMovieDislike={ handleMovieDislike }
-                        isLoading={ isLoading }
+                        handleSearch={ handleSearch }
                       />
                     ) }
                   />
@@ -228,12 +257,14 @@ function App() {
                         element={ SavedMovies }
                         loggedIn={ loggedIn }
                         displayedMovies={ displayedMovies }
-                        movies={ savedMovies }
+                        filteredMovies={ filteredMovies }
+                        moviesData={ savedMovies }
                         handleDisplayedMovies={ handleDisplayedMovies }
+                        handleFilteredMovies={ handleFilteredMovies }
                         handleClickMoreButton={ handleClickMoreButton }
-                        isAllCardsOnPage={ savedMovies.length === displayedMovies.length }
                         handleMovieLike={ handleMovieLike }
                         handleMovieDislike={ handleMovieDislike }
+                        handleSearch={ handleSearch }
                       />
                     ) }
                   />

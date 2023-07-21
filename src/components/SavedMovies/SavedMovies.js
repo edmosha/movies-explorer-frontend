@@ -21,8 +21,8 @@ function SavedMovies(
   const [filter, setFilter] = useState(false);
 
   useEffect(() => {
-    const search = localStorage.getItem('saved-movies_search-text');
-    const isShortMovie = localStorage.getItem('saved-movies_is-short-movie');
+    let search = localStorage.getItem('saved-movies_search-text');
+    let isShortMovie = localStorage.getItem('saved-movies_is-short-movie');
     const movies = localStorage.getItem('saved-movies_movies');
 
     if (search && isShortMovie && movies) {
@@ -30,6 +30,8 @@ function SavedMovies(
       setSearchText(search);
       setFilter(JSON.parse(isShortMovie));
     } else {
+      search = '';
+      isShortMovie = false;
       handleFilteredMovies(moviesData);
     }
 

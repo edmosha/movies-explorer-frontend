@@ -57,7 +57,6 @@ function App() {
           setLoggedIn(true);
           setIsLoading(false);
         })
-        .catch(() => localStorage.removeItem('user'));
     } else {
       setIsLoading(false);
     }

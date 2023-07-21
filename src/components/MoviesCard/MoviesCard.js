@@ -1,11 +1,15 @@
 import React from 'react';
 import './MoviesCard.css';
+import { useLocation } from 'react-router-dom';
 import { moviesApiUrl } from '../../utils/constants';
 
 function MoviesCard({
   movie, isLiked, handleLike, handleDislike,
 }) {
-  const likeButtonClass = `movies-card__like-btn movies-card__like-btn_${ isLiked ? 'active' : '' }`;
+  const { pathname } = useLocation();
+  const likeButtonClass = `movies-card__like-btn 
+     movies-card__like-btn_type_${ isLiked && pathname === '/movies' ? 'unsaved-active' : '' } 
+     movies-card__like-btn_type_${ isLiked && pathname === '/saved-movies' ? 'saved-active' : '' }`;
 
   const handleDuration = () => {
     const hours = Math.floor(movie.duration / 60);
@@ -26,11 +30,13 @@ function MoviesCard({
     <li className="movies-card-list__item">
       <article className="movies-card">
 
-        <img
-          src={ moviesApiUrl + (movie.image.url || movie.image) }
-          alt={ movie.nameRU }
-          className="movies-card__image"
-        />
+        <a href={ movie.trailerLink } className="movies-card__link" target="_blank" rel="noreferrer">
+          <img
+            src={ moviesApiUrl + (movie.image.url || movie.image) }
+            alt={ movie.nameRU }
+            className="movies-card__image"
+          />
+        </a>
 
         <div className="movies-card__title-container">
           <h2 className="movies-card__title">{ movie.nameRU }</h2>

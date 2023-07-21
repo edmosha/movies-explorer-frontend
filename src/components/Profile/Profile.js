@@ -39,10 +39,10 @@ function Profile({ handleUpdateProfile, handleLogout }) {
           onKeyDown={ onKeyDown }
           name="name"
           type="text"
-          required
           minLength="2"
           maxLength="30"
-          pattern="^[a-zA-ZА-Яа-яЁё\s\-]+$"
+          pattern="[a-zA-ZА-Яа-яЁё\s\-]+"
+          required
         />
 
         <span className="profile__error">{ errors.name }</span>
@@ -56,6 +56,7 @@ function Profile({ handleUpdateProfile, handleLogout }) {
           onKeyDown={ onKeyDown }
           name="email"
           type="email"
+          pattern="[a-zA-Z0-9_.]+[@]{1}[a-z0-9]+[\.][a-z]+"
           required
         />
 

@@ -5,6 +5,11 @@
   transition: box-shadow .1s ease-in, transform .1s ease-in;
 }
 
+.movies-card__link {
+  color: inherit;
+  text-decoration: none;
+}
+
 .movies-card:hover {
   transform: scale(1.1);
 }
@@ -42,6 +47,7 @@
   height: 24px;
   border: none;
   opacity: .25;
+  cursor: pointer;
   background: url("../../images/like-disabled-icon.svg") no-repeat;
   transition: background .12s ease-in, opacity .12s ease-in, transform .12s ease-in;
 }
@@ -50,20 +56,33 @@
   opacity: 1;
 }
 
-.movies-card__like-btn_active {
-  opacity: 1;
-  background: url("../../images/like-active-icon.svg") no-repeat;
-}
-
-.movies-card:hover .movies-card__like-btn_active {
-  background: url("../../images/like-active-hover-icon.svg") no-repeat;
-}
-
 .movies-card__like-btn:hover {
   transform: scale(1.08);
 }
 
-.movies-card:hover .movies-card__like-btn_active:hover {
+/* /movies active state */
+
+.movies-card__like-btn_type_unsaved-active {
+  opacity: 1;
+  background: url("../../images/like-active-icon.svg") no-repeat;
+}
+
+.movies-card:hover .movies-card__like-btn_type_unsaved-active {
+  background: url("../../images/like-active-hover-icon.svg") no-repeat;
+}
+
+.movies-card:hover .movies-card__like-btn_type_unsaved-active:hover {
+  background: url("../../images/like-active-hover-delete-icon.svg") no-repeat;
+}
+
+/* /saved-movies */
+
+.movies-card__like-btn_type_saved-active {
+  opacity: 1;
+  background: url("../../images/like-active-delete-icon.svg") no-repeat;
+}
+
+.movies-card:hover .movies-card__like-btn_type_saved-active:hover {
   background: url("../../images/like-active-hover-delete-icon.svg") no-repeat;
 }
 

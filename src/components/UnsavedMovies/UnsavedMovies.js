@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import Movies from "../Movies/Movies";
+import Movies from '../Movies/Movies';
+import Preloader from '../Preloader/Preloader';
 
 function UnsavedMovies(
   {
@@ -7,6 +8,7 @@ function UnsavedMovies(
     filteredMovies,
     savedMovies,
     moviesData,
+    getAllMovies,
     handleDisplayedMovies,
     handleFilteredMovies,
     handleClickMoreButton,
@@ -15,17 +17,16 @@ function UnsavedMovies(
     handleSearch,
   },
 ) {
-
-  const [ isSearchLoading, setIsSearchLoading ] = useState(true);
-  const [ searchText, setSearchText ] = useState('');
-  const [ filter, setFilter ] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
+  const [searchText, setSearchText] = useState('');
+  const [filter, setFilter] = useState(false);
 
   useEffect(() => {
     const search = localStorage.getItem('movies_search-text');
     const isShortMovie = localStorage.getItem('movies_is-short-movie');
     const movies = localStorage.getItem('movies_movies');
 
-    if(search && isShortMovie && movies) {
+    if (search && isShortMovie && movies) {
       handleFilteredMovies(JSON.parse(movies));
       setSearchText(search);
       setFilter(JSON.parse(isShortMovie));
@@ -33,8 +34,12 @@ function UnsavedMovies(
       handleFilteredMovies([]);
     }
 
-    setIsSearchLoading(false);
-  }, [])
+    if (!moviesData.length) {
+      getAllMovies().then(() => setIsLoading(false));
+    } else {
+      setIsLoading(false);
+    }
+  }, []);
 
   const handleIsLiked = (movie) => {
     for (let i = 0; i < savedMovies.length; i++) {
@@ -45,20 +50,23 @@ function UnsavedMovies(
   };
 
   return (
-    !isSearchLoading &&
-     <Movies displayedMovies={ displayedMovies }
-            filteredMovies={ filteredMovies }
-            moviesData={ moviesData }
-            handleDisplayedMovies={ handleDisplayedMovies }
-            handleClickMoreButton={ handleClickMoreButton }
-            handleMovieLike={ handleMovieLike }
-            handleMovieDislike={ handleMovieDislike }
-            handleIsLiked={ handleIsLiked }
-            handleSearch={ handleSearch }
-            searchText={ searchText }
-            filter={ filter }
-            isSearchLoading={ isSearchLoading }
-    />
+    !isLoading
+      ? (
+        <Movies
+          displayedMovies={ displayedMovies }
+          filteredMovies={ filteredMovies }
+          moviesData={ moviesData }
+          handleDisplayedMovies={ handleDisplayedMovies }
+          handleClickMoreButton={ handleClickMoreButton }
+          handleMovieLike={ handleMovieLike }
+          handleMovieDislike={ handleMovieDislike }
+          handleIsLiked={ handleIsLiked }
+          handleSearch={ handleSearch }
+          searchText={ searchText }
+          filter={ filter }
+        />
+      )
+      : <Preloader />
   );
 }
 

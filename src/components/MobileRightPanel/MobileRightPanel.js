@@ -11,7 +11,7 @@ function MobileRightPanel({ isOpen }) {
       <div className="mobile-right-panel__container">
         <HeaderNavigation>
           <li>
-            <NavLink to="/main" className="header__menu-link">Главная</NavLink>
+            <NavLink to="/" className="header__menu-link">Главная</NavLink>
           </li>
         </HeaderNavigation>
       </div>

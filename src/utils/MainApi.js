@@ -81,6 +81,5 @@ class MainApi {
   }
 }
 
-// const mainApi = new MainApi(mainApiUrl);
-const mainApi = new MainApi('http://localhost:3001');
+const mainApi = new MainApi(mainApiUrl);
 export default mainApi;

@@ -22,7 +22,8 @@
         "jest/prefer-to-have-length": "warn",
         "jest/valid-expect": "error",
         "template-curly-spacing": ["error", "always"],
-        "no-plusplus": ["error", { "allowForLoopAfterthoughts": true }]
+        "no-plusplus": ["error", { "allowForLoopAfterthoughts": true }],
+        "no-useless-escape": "off"
     },
     "plugins": ["jest"]
 }

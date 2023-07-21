@@ -13,6 +13,7 @@ function FormInput(
     title,
     minLength = null,
     maxLength = null,
+    pattern = '.+',
   },
 ) {
   const inputClass = `form-input__input ${ errors[name] && 'form-input__input_invalid' }`;
@@ -32,6 +33,7 @@ function FormInput(
         type={ type }
         minLength={ minLength }
         maxLength={ maxLength }
+        pattern={ pattern }
         required
       />
       <span className="form-input__error">{ errors[name] }</span>

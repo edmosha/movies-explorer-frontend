@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import './Movies.css';
 import SearchForm from '../SearchForm/SearchForm';
 import MoviesCardList from '../MoviesCardList/MoviesCardList';
-import Preloader from "../Preloader/Preloader";
 
 function Movies(
   {
@@ -17,12 +16,13 @@ function Movies(
     handleIsLiked,
     searchText,
     filter,
-    isSearchLoading
   },
 ) {
+  const [isSearchLoading, setIsSearchLoading] = useState(false);
 
   useEffect(() => {
     handleDisplayedMovies(filteredMovies);
+    setIsSearchLoading(false);
   }, [filteredMovies]);
 
   const isAllCardsOnPage = filteredMovies.length === displayedMovies.length;
@@ -31,27 +31,33 @@ function Movies(
     handleClickMoreButton(filteredMovies);
   };
 
+  const handleSearchLoading = (value) => {
+    setIsSearchLoading(value);
+  };
+
   return (
     <main className="movies">
-      <SearchForm moviesData={ moviesData }
-                  onSearch={ handleSearch }
-                  searchText={ searchText }
-                  filter={ filter }
+      <SearchForm
+        moviesData={ moviesData }
+        onSearch={ handleSearch }
+        searchText={ searchText }
+        filter={ filter }
+        handleSearchLoading={ handleSearchLoading }
       />
-      {
-        !!displayedMovies.length
-        ? (
-          <MoviesCardList
-            movies={ displayedMovies }
-            onClickMoreButton={ onClickMoreButton }
-            isAllCardsOnPage={ isAllCardsOnPage }
-            handleMovieLike={ handleMovieLike }
-            handleMovieDislike={ handleMovieDislike }
-            handleIsLiked={ handleIsLiked }
-          />
-        )
-        : ( <p className="movies__empty-search-text">Здесь пока пусто 👀</p>)
-      }
+      { !isSearchLoading && (
+        displayedMovies.length
+          ? (
+            <MoviesCardList
+              movies={ displayedMovies }
+              onClickMoreButton={ onClickMoreButton }
+              isAllCardsOnPage={ isAllCardsOnPage }
+              handleMovieLike={ handleMovieLike }
+              handleMovieDislike={ handleMovieDislike }
+              handleIsLiked={ handleIsLiked }
+            />
+          )
+          : (<p className="movies__empty-search-text">Здесь пока пусто 👀</p>)
+      )}
     </main>
   );
 }

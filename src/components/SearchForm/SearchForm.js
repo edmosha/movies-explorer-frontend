@@ -1,11 +1,13 @@
-import React, { useContext, useEffect } from 'react';
-import FilterCheckbox from '../FilterCheckbox/FilterCheckbox';
+import React, { useContext, useLayoutEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 import './SearchForm.css';
+import FilterCheckbox from '../FilterCheckbox/FilterCheckbox';
 import CurrentScreenResolution from '../contexts/CurrentScreenResolution';
 import useValidation from '../hooks/useValidation';
-import { useLocation } from "react-router-dom";
 
-function SearchForm({ moviesData, onSearch, searchText, filter }) {
+function SearchForm({
+  moviesData, onSearch, searchText, filter, handleSearchLoading,
+}) {
   const ScreenResolution = useContext(CurrentScreenResolution);
   const whiteSearchButtonClass = `
     search-form__button 
@@ -13,20 +15,25 @@ function SearchForm({ moviesData, onSearch, searchText, filter }) {
     ${ ScreenResolution <= 320 ? 'search-form__button_hidden' : '' }`;
 
   const {
-    values, isValid, onChange, checkError, onKeyDown, checked, resetValidation
+    values, isValid, onChange, checkError, onKeyDown, checked, resetValidation,
   } = useValidation();
 
   const { pathname } = useLocation();
 
-  useEffect(() => {
-    console.log('text', searchText, 'filter', filter)
-    resetValidation({ search: searchText, filter }, {}, filter)
-  }, [])
+  useLayoutEffect(() => {
+    resetValidation({ search: searchText, filter }, {}, filter);
+  }, []);
 
   const onSubmit = (evt) => {
     evt.preventDefault();
-    onSearch(values.search, values.filter, pathname.slice(1), moviesData)
-  }
+    handleSearchLoading(true);
+    onSearch(values.search, pathname.slice(1), moviesData, checked);
+  };
+
+  const onToggleFilter = () => {
+    handleSearchLoading(true);
+    onSearch(values.search, pathname.slice(1), moviesData, !checked);
+  };
 
   return (
     <section className="search-form">
@@ -49,18 +56,20 @@ function SearchForm({ moviesData, onSearch, searchText, filter }) {
             name="search"
             className="search-form__input"
             placeholder="Фильм"
-            required
           />
 
           <button
             aria-label="поиск"
             type="submit"
             className="search-form__button search-form__button_color_black"
-            disabled={ !isValid }
           />
 
         </fieldset>
-        <FilterCheckbox value={ checked || false } onChange={ onChange } />
+        <FilterCheckbox
+          value={ checked || false }
+          onChange={ onChange }
+          onClick={ onToggleFilter }
+        />
       </form>
     </section>
   );

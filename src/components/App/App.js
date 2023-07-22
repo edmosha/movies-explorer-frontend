@@ -120,14 +120,16 @@ function App() {
 
   const handleLogout = () => mainApi.logout()
     .then(() => {
-      const deleteList = ['user',
+      const deleteList = [
+        'user',
         'movies_search-text',
         'movies_is-short-movie',
         'movies_movies',
-        'saved-movies_search-text',
-        'saved-movies_is-short-movie',
-        'saved-movies_movies',
       ];
+
+      setSavedMovies([]);
+      setFilteredMovies([]);
+      setDisplayedMovies([]);
 
       deleteList.forEach((item) => localStorage.removeItem(item));
 

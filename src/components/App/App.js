@@ -175,9 +175,11 @@ function App() {
     const filteredMoviesData = filterMovies(searchText, filter, movies);
     setFilteredMovies(filteredMoviesData);
 
-    localStorage.setItem(`${ url }_search-text`, searchText);
-    localStorage.setItem(`${ url }_is-short-movie`, String(filter));
-    localStorage.setItem(`${ url }_movies`, JSON.stringify(filteredMoviesData));
+    if (url === 'movies') {
+      localStorage.setItem(`${ url }_search-text`, searchText);
+      localStorage.setItem(`${ url }_is-short-movie`, String(filter));
+      localStorage.setItem(`${ url }_movies`, JSON.stringify(filteredMoviesData));
+    }
   };
 
   const handleClickMoreButton = (movies) => {
@@ -206,7 +208,7 @@ function App() {
   };
 
   const handleMovieLike = (likedMovie) => mainApi.like(likedMovie)
-    .then((movie) => setSavedMovies([...savedMovies, movie]));
+    .then((movie) => setSavedMovies([movie, ...savedMovies]));
 
   const handleMovieDislike = (movieId) => mainApi.dislike(movieId)
     .then(() => {

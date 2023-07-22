@@ -17,31 +17,17 @@ function SavedMovies(
   },
 ) {
   const [isLoading, setIsLoading] = useState(true);
-  const [searchText, setSearchText] = useState('');
-  const [filter, setFilter] = useState(false);
 
   useEffect(() => {
-    let search = localStorage.getItem('saved-movies_search-text');
-    let isShortMovie = localStorage.getItem('saved-movies_is-short-movie');
-    const movies = localStorage.getItem('saved-movies_movies');
-
-    if (search && isShortMovie && movies) {
-      handleFilteredMovies(JSON.parse(movies));
-      setSearchText(search);
-      setFilter(JSON.parse(isShortMovie));
-    } else {
-      search = '';
-      isShortMovie = false;
-      handleFilteredMovies(moviesData);
-    }
+    handleFilteredMovies(moviesData);
 
     if (!moviesData.length) {
       getSavedMovies().then((data) => {
-        handleSearch(search, 'saved-movies', data, JSON.parse(isShortMovie));
+        handleSearch('', 'saved-movies', data, false);
         setIsLoading(false);
       });
     } else {
-      handleSearch(search, 'saved-movies', moviesData, JSON.parse(isShortMovie));
+      handleSearch('', 'saved-movies', moviesData, false);
       setIsLoading(false);
     }
   }, []);
@@ -61,8 +47,8 @@ function SavedMovies(
           handleMovieDislike={ handleMovieDislike }
           handleIsLiked={ handleIsLiked }
           handleSearch={ handleSearch }
-          searchText={ searchText }
-          filter={ filter }
+          searchText=""
+          filter={ false }
         />
       )
       : <Preloader />

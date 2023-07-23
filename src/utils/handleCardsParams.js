@@ -1,18 +1,41 @@
+import {
+  LAPTOP_SCREEN_RESOLUTION,
+  MOBILE_SCREEN_RESOLUTION,
+  TABLET_SCREEN_RESOLUTION,
+  CARDS_IN_PAGE_ON_LAPTOP,
+  CARDS_IN_PAGE_ON_SMALL_LAPTOP,
+  CARDS_IN_PAGE_ON_TABLET,
+  CARDS_IN_PAGE_ON_MOBILE,
+  CARDS_LOAD_ON_LAPTOP,
+  CARDS_LOAD_ON_SMALL_LAPTOP,
+  CARDS_LOAD_ON_TABLET,
+  CARDS_LOAD_ON_MOBILE,
+} from "./constants";
+
 const handleCardsParams = (screen) => {
   switch (true) {
-    case screen > 1124:
-      return { cardsInPage: 16, cardsLoad: 8 };
+    case screen > LAPTOP_SCREEN_RESOLUTION:
+      return {
+        cardsInPage: CARDS_IN_PAGE_ON_LAPTOP, cardsLoad: CARDS_LOAD_ON_LAPTOP,
+      };
 
-    case screen > 768 && screen <= 1124:
-      return { cardsInPage: 12, cardsLoad: 3 };
+    case screen > TABLET_SCREEN_RESOLUTION && screen <= LAPTOP_SCREEN_RESOLUTION:
+      return {
+        cardsInPage: CARDS_IN_PAGE_ON_SMALL_LAPTOP, cardsLoad: CARDS_LOAD_ON_SMALL_LAPTOP,
+      };
 
-    case screen > 425 && screen <= 768:
-      return { cardsInPage: 8, cardsLoad: 2 };
+    case screen > MOBILE_SCREEN_RESOLUTION && screen <= TABLET_SCREEN_RESOLUTION:
+      return {
+        cardsInPage: CARDS_IN_PAGE_ON_TABLET, cardsLoad: CARDS_LOAD_ON_TABLET,
+      };
 
-    case screen <= 425:
-      return { cardsInPage: 5, cardsLoad: 2 };
+    case screen <= MOBILE_SCREEN_RESOLUTION:
+      return {
+        cardsInPage: CARDS_IN_PAGE_ON_MOBILE, cardsLoad: CARDS_LOAD_ON_MOBILE,
+      };
 
-    default: return { message: "width doesn't find" };
+    default:
+      return { message: "width doesn't find" };
   }
 };
 

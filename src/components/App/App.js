@@ -56,7 +56,7 @@ function App() {
           setCurrentUser((user));
           setLoggedIn(true);
           setIsLoading(false);
-        })
+        });
     } else {
       setIsLoading(false);
     }

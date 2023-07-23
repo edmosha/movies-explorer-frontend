@@ -1,4 +1,4 @@
-import { MAX_DURATION_OF_SHORT_FILM } from "./constants";
+import { MAX_DURATION_OF_SHORT_FILM } from './constants';
 
 const filterMovies = (str, isShortMovie, movies) => movies.filter((movie) => {
   const {

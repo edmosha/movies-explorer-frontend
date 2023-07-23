@@ -16,15 +16,15 @@ function AuthForm(
     underSubmitButtonLink,
   },
 ) {
-  const [ isDisabled, setIsDisabled ] = useState(false);
+  const [isDisabled, setIsDisabled] = useState(false);
   const submitButtonClass = `black-form-button ${ !isValid || isDisabled ? 'black-form-button_inactive' : '' }`;
 
   const onSubmit = (evt) => {
     setIsDisabled(true);
     handleSubmit(evt).then(() => {
       setIsDisabled(false);
-    })
-  }
+    });
+  };
 
   return (
     <section className="auth">

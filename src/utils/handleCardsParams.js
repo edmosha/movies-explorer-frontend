@@ -10,7 +10,7 @@ import {
   CARDS_LOAD_ON_SMALL_LAPTOP,
   CARDS_LOAD_ON_TABLET,
   CARDS_LOAD_ON_MOBILE,
-} from "./constants";
+} from './constants';
 
 const handleCardsParams = (screen) => {
   switch (true) {

@@ -13,8 +13,10 @@ function Profile({ handleUpdateProfile, handleLogout }) {
   const user = useContext(CurrentUser);
   const { name, email } = user;
 
-  const [ isDisabled, setIsDisabled ] = useState(false);
-  const isButtonDisabled = !isValid || (values.name === name && values.email === email) || isDisabled;
+  const [isDisabled, setIsDisabled] = useState(false);
+  const isButtonDisabled = !isValid
+    || (values.name === name && values.email === email)
+    || isDisabled;
   const submitButtonClass = `black-form-button ${ isButtonDisabled ? 'black-form-button_inactive' : '' }`;
 
   useEffect(() => {

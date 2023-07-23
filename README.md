@@ -20,3 +20,5 @@
 **IP:** 158.160.66.154 <br>
 **Frontend:** https://movies-exp.edmosha.nomoreparties.sbs <br>
 **Backend:** https://api.movies-exp.edmosha.nomoreparties.sbs <br>
+
+pull request: https://github.com/edmosha/movies-explorer-frontend/pull/13

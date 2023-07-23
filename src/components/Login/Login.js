@@ -19,13 +19,12 @@ function Login({ handleLogin }) {
 
   const handleSubmit = (evt) => {
     evt.preventDefault();
-    handleLogin(values);
-    resetValidation();
+    return handleLogin(values).then((res) => !(res instanceof Error) && resetValidation());
   };
 
   return (
     <AuthForm
-      onSubmit={ handleSubmit }
+      handleSubmit={ handleSubmit }
       isValid={ isValid }
       title="Рады видеть!"
       submitButtonText="Войти"

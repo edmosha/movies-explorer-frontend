@@ -102,7 +102,10 @@ function App() {
           });
       },
     }))
-    .catch((err) => handleError(err));
+    .catch((err) => {
+      handleError(err);
+      return err;
+    });
 
   const handleLogin = (data) => mainApi.login(data)
     .then((res) => {
@@ -116,7 +119,10 @@ function App() {
         },
       });
     })
-    .catch((err) => handleError(err));
+    .catch((err) => {
+      handleError(err);
+      return err;
+    });
 
   const handleLogout = () => mainApi.logout()
     .then(() => {

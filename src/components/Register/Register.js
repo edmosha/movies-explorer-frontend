@@ -19,13 +19,12 @@ function Register({ handleRegister }) {
 
   const handleSubmit = (evt) => {
     evt.preventDefault();
-    handleRegister(values);
-    resetValidation();
+    return handleRegister(values).then((res) => !(res instanceof Error) && resetValidation());
   };
 
   return (
     <AuthForm
-      onSubmit={ handleSubmit }
+      handleSubmit={ handleSubmit }
       isValid={ isValid }
       title="Добро пожаловать!"
       submitButtonText="Зарегистрироваться"

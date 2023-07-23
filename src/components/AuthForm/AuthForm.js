@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './AuthForm.css';
 import { Link } from 'react-router-dom';
 import Logo from '../Logo/Logo';
@@ -6,7 +6,7 @@ import BlackFormButton from '../BlackFormButton/BlackFormButton';
 
 function AuthForm(
   {
-    onSubmit,
+    handleSubmit,
     children,
     isValid,
     title,
@@ -16,7 +16,15 @@ function AuthForm(
     underSubmitButtonLink,
   },
 ) {
-  const submitButtonClass = `black-form-button ${ !isValid ? 'black-form-button_inactive' : '' }`;
+  const [ isDisabled, setIsDisabled ] = useState(false);
+  const submitButtonClass = `black-form-button ${ !isValid || isDisabled ? 'black-form-button_inactive' : '' }`;
+
+  const onSubmit = (evt) => {
+    setIsDisabled(true);
+    handleSubmit(evt).then(() => {
+      setIsDisabled(false);
+    })
+  }
 
   return (
     <section className="auth">
@@ -33,7 +41,7 @@ function AuthForm(
         <BlackFormButton
           className={ submitButtonClass }
           text={ submitButtonText }
-          disabled={ !isValid }
+          isDisabled={ (!isValid || isDisabled) }
         />
 
       </form>

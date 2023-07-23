@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import './Profile.css';
 import { Link } from 'react-router-dom';
 import BlackFormButton from '../BlackFormButton/BlackFormButton';
@@ -12,7 +12,9 @@ function Profile({ handleUpdateProfile, handleLogout }) {
 
   const user = useContext(CurrentUser);
   const { name, email } = user;
-  const isButtonDisabled = !isValid || (values.name === name && values.email === email);
+
+  const [ isDisabled, setIsDisabled ] = useState(false);
+  const isButtonDisabled = !isValid || (values.name === name && values.email === email) || isDisabled;
   const submitButtonClass = `black-form-button ${ isButtonDisabled ? 'black-form-button_inactive' : '' }`;
 
   useEffect(() => {
@@ -21,8 +23,9 @@ function Profile({ handleUpdateProfile, handleLogout }) {
 
   const onSubmit = (evt) => {
     evt.preventDefault();
-    handleUpdateProfile(values);
     resetValidation(user);
+    setIsDisabled(true);
+    handleUpdateProfile(values).then(() => setIsDisabled(false));
   };
 
   return (

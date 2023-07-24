@@ -9,6 +9,7 @@ function UnsavedMovies(
     savedMovies,
     moviesData,
     getAllMovies,
+    getSavedMovies,
     handleDisplayedMovies,
     handleFilteredMovies,
     handleClickMoreButton,
@@ -34,10 +35,21 @@ function UnsavedMovies(
       handleFilteredMovies([]);
     }
 
-    if (!moviesData.length) {
-      getAllMovies().then(() => setIsLoading(false));
-    } else {
-      setIsLoading(false);
+    switch (true) {
+      case !moviesData.length && !!savedMovies.length: // no movies
+        getAllMovies().then(() => setIsLoading(false));
+        break;
+
+      case !!moviesData.length && !savedMovies.length: // no saved movies
+        getSavedMovies().then(() => setIsLoading(false));
+        break;
+
+      case !moviesData.length && !savedMovies.length: // no all movies
+        Promise.all([getAllMovies(), getSavedMovies()]).then(() => setIsLoading(false));
+        break;
+
+      default:
+        setIsLoading(false);
     }
   }, []);
 

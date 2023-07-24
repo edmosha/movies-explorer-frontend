@@ -159,10 +159,9 @@ function App() {
     })
     .catch((err) => handleError(err));
 
-  const getAllMovies = () => Promise.all([moviesApi.getMovies(), mainApi.getSavedMovies()])
-    .then(([moviesData, savedMoviesData]) => {
+  const getAllMovies = () => moviesApi.getMovies()
+    .then((moviesData) => {
       setAllMovies(moviesData);
-      setSavedMovies(savedMoviesData);
     })
     .catch((err) => handleError(err));
 
@@ -267,6 +266,7 @@ function App() {
                         savedMovies={ savedMovies }
                         moviesData={ allMovies }
                         getAllMovies={ getAllMovies }
+                        getSavedMovies={ getSavedMovies }
                         handleDisplayedMovies={ handleDisplayedMovies }
                         handleFilteredMovies={ handleFilteredMovies }
                         handleClickMoreButton={ handleClickMoreButton }

@@ -12,7 +12,7 @@ function AuthorizedHeader({ handleOpenMobileMenu }) {
     <Header>
       {
         screenResolution <= 768
-          ? <HamburgerButton onClick={handleOpenMobileMenu} />
+          ? <HamburgerButton onClick={ handleOpenMobileMenu } />
           : <HeaderNavigation />
       }
     </Header>

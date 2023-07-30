@@ -4,8 +4,8 @@ import './HamburgerButton.css';
 function HamburgerButton({ onClick }) {
   const [isOpen, setIsOpen] = useState(false);
 
-  const lineClass = `hamburger-btn__line ${isOpen ? 'hamburger-btn__line_opened' : ''}`;
-  const buttonClass = `hamburger-btn ${isOpen ? 'hamburger-btn__fixed' : ''}`;
+  const lineClass = `hamburger-btn__line ${ isOpen ? 'hamburger-btn__line_opened' : '' }`;
+  const buttonClass = `hamburger-btn ${ isOpen ? 'hamburger-btn__fixed' : '' }`;
 
   const handleClick = () => {
     onClick();
@@ -13,10 +13,10 @@ function HamburgerButton({ onClick }) {
   };
 
   return (
-    <button type="button" className={buttonClass} onClick={handleClick}>
-      <div className={lineClass} />
-      <div className={lineClass} />
-      <div className={lineClass} />
+    <button type="button" className={ buttonClass } onClick={ handleClick }>
+      <div className={ lineClass } />
+      <div className={ lineClass } />
+      <div className={ lineClass } />
     </button>
   );
 }

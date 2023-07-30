@@ -67,7 +67,7 @@
   background-color: #A0A0A0;
 }
 
-@media screen and (min-width: 426px) and (max-width: 768px){
+@media screen and (min-width: 426px) and (max-width: 768px) {
   .about-me {
     padding: 90px 50px;
   }

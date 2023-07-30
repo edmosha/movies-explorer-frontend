@@ -7,15 +7,6 @@ function useValidation() {
 
   const [checked, setChecked] = useState(false);
 
-  const onChange = (evt) => {
-    if (evt.target.type === 'checkbox') {
-      setChecked(!checked);
-    }
-
-    const { name, value } = evt.target;
-    setValues((prevValues) => ({ ...prevValues, [name]: value }));
-  };
-
   const checkError = (evt) => {
     const { name, validationMessage: error } = evt.target;
     setErrors((prevErrors) => ({ ...prevErrors, [name]: error }));
@@ -24,9 +15,21 @@ function useValidation() {
     setIsValid(form.checkValidity());
   };
 
+  const onChange = (evt) => {
+    if (evt.target.type === 'checkbox') {
+      setChecked(!checked);
+    }
+
+    const { name, value } = evt.target;
+    setValues((prevValues) => ({ ...prevValues, [name]: value }));
+
+    checkError(evt);
+  };
+
   const onKeyDown = (evt) => evt.key === 'Enter' && checkError(evt);
 
-  const resetValidation = (newValues = {}, newErrors = {}) => {
+  const resetValidation = (newValues = {}, newErrors = {}, checkbox = false) => {
+    setChecked(checkbox);
     setValues(newValues);
     setErrors(newErrors);
     setIsValid(false);

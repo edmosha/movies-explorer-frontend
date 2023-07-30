@@ -2,24 +2,41 @@ import React from 'react';
 import './MoviesCardList.css';
 import MoviesCard from '../MoviesCard/MoviesCard';
 
-function MoviesCardList() {
-  const n = 7;
-
+function MoviesCardList(
+  {
+    movies,
+    handleIsLiked,
+    onClickMoreButton,
+    isAllCardsOnPage,
+    handleMovieLike,
+    handleMovieDislike,
+  },
+) {
   return (
     <section className="movies-card-list">
       <ul className="movies-card-list__card-container">
 
-        <MoviesCard key="123" isLiked />
-
-        {[...Array(n)].map((card, i) => <MoviesCard key={i} />)}
+        { movies.map((movie) => (
+          <MoviesCard
+            key={ movie.id || movie.movieId }
+            movie={ movie }
+            isLiked={ handleIsLiked(movie) }
+            handleLike={ handleMovieLike }
+            handleDislike={ handleMovieDislike }
+          />
+        )) }
 
       </ul>
-      <button
-        type="button"
-        className="movies-card-list__show-more-btn"
-      >
-        Ещё
-      </button>
+      { !isAllCardsOnPage
+        && (
+          <button
+            type="button"
+            className="movies-card-list__show-more-btn"
+            onClick={ onClickMoreButton }
+          >
+            Ещё
+          </button>
+        ) }
     </section>
   );
 }

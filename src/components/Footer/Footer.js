@@ -12,7 +12,14 @@ function Footer() {
         <ul className="footer__links">
 
           <li className="footer__item">
-            <a href="https://practicum.yandex.ru/" className="footer__link" target="_blank" rel="noreferrer">Яндекс.Практикум</a>
+            <a
+              href="https://practicum.yandex.ru/"
+              className="footer__link"
+              target="_blank"
+              rel="noreferrer"
+            >
+              Яндекс.Практикум
+            </a>
           </li>
 
           <li className="footer__item">

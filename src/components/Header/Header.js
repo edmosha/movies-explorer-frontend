@@ -5,10 +5,10 @@ import Logo from '../Logo/Logo';
 
 function Header({ children }) {
   const { pathname } = useLocation();
-  const headerClass = `header header__color_${pathname === '/' ? 'pink' : 'white'}`;
+  const headerClass = `header header__color_${ pathname === '/' ? 'pink' : 'white' }`;
 
   return (
-    <header className={headerClass}>
+    <header className={ headerClass }>
       <div className="header__container">
         <Logo />
         { children }

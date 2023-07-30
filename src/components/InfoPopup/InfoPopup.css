@@ -1,0 +1,116 @@
+.info-popup {
+  display: none;
+  padding: 0 20px;
+}
+
+.info-popup_opened {
+  display: block;
+}
+
+.info-popup:before {
+  position: fixed;
+  content: '';
+  top: 0;
+  left: 0;
+  flex: 1 0 auto;
+  width: 100%;
+  height: 100%;
+  background-color: #000;
+  opacity: .3;
+  z-index: 1;
+}
+
+.info-popup__container {
+  justify-items: center;
+  align-items: end;
+  display: grid;
+  grid-template-rows: repeat(2, min-content) 1fr;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 396px;
+  min-height: 280px;
+  box-sizing: border-box;
+  border-radius: 10px;
+  padding: 40px 20px 30px;
+  background: #fff;
+  z-index: 1;
+  text-align: center;
+}
+
+.info-popup__close-btn {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  width: 22px;
+  height: 22px;
+  border: none;
+  background-color: unset;
+  background: url("../../images/cross-icon.svg") center no-repeat;
+  cursor: pointer;
+}
+
+.info-popup__title {
+  margin: 0;
+  font-size: 30px;
+  font-weight: 400;
+  line-height: 50px;
+  letter-spacing: -1.2px;
+}
+
+.info-popup__text {
+  margin: 20px 0 0;
+  font-size: 18px;
+  line-height: 20px;
+}
+
+.info-popup__continue-btn {
+  position: relative;
+  width: 100%;
+  height: 45px;
+  border: none;
+  border-radius: 3px;
+  padding: 0;
+  background-color: #000;
+  text-align: center;
+  font-size: 14px;
+  font-weight: 500;
+  color: #fff;
+  cursor: pointer;
+}
+
+.info-popup__continue-btn:after {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  top: 0;
+  left: 50%;
+  content: attr(data-content);;
+  width: 0;
+  height: 45px;
+  border-radius: 3px;
+  background-color: #FF4062;
+  text-align: center;
+  transition: width .4s ease-in, left .4s ease-in, opacity .15s;
+  opacity: 0;
+}
+
+.info-popup__continue-btn:hover:after {
+  opacity: 1;
+  width: 100%;
+  left: 0;
+}
+
+@media screen and (max-width: 440px) {
+  .info-popup__container {
+    width: 280px;
+    padding: 30px 15px 25px;
+  }
+
+  .info-popup__close-btn {
+    top: 15px;
+    right: 15px;
+  }
+}

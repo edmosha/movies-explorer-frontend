@@ -55,6 +55,7 @@
     line-height: initial;
   }
 }
+
 @media screen and (max-width: 425px) {
   .header__menu {
     gap: 24px;

@@ -1,5 +1,6 @@
 .mobile-right-panel {
   display: none;
+  z-index: 1;
 }
 
 .mobile-right-panel__opened {

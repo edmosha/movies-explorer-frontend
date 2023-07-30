@@ -1,5 +1,6 @@
 .search-form {
   max-width: 1280px;
+  width: 100%;
   box-sizing: border-box;
   margin: 0 auto;
   padding: 65px 70px 45px;
@@ -32,7 +33,7 @@
   outline: none;
 }
 
-.search-form__search-container:has(.search-form__input:focus)  {
+.search-form__search-container:has(.search-form__input:focus) {
   border-bottom: 1px solid #FF4062;
 }
 

@@ -16,7 +16,7 @@
 
 ### Информация
 
-**Ссылка на макет:** https://disk.yandex.ru/d/kX3XdIwCTgjW-w <br>
+**Ссылка на доску:** https://github.com/users/edmosha/projects/2/views/1?filterQuery=-status%3ABacklog%2CTodo <br>
 **IP:** 158.160.66.154 <br>
 **Frontend:** https://movies-exp.edmosha.nomoreparties.sbs <br>
 **Backend:** https://api.movies-exp.edmosha.nomoreparties.sbs <br>
